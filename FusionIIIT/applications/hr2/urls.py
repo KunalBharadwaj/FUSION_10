@@ -1,7 +1,6 @@
 from django.conf.urls import url, include 
 
 from applications.hr2 import views
-from applications.hr2.api import form_views
 
 app_name = 'hr2'
 

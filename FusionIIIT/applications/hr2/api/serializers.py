@@ -1,65 +1,86 @@
 from rest_framework import serializers
-from applications.hr2.models import LTCform, CPDAAdvanceform, CPDAReimbursementform, LeaveForm, Appraisalform, LeaveBalance
+from applications.hr2.models import (
+    Employee, EmpConfidentialDetails, EmpDependents,
+    LeaveBalance, LeavePerYear, LeaveForm, LeaveClaim,
+    LTCform, CPDAAdvanceform, CPDAReimbursementform, Appraisalform
+)
 
-
-class LTC_serializer(serializers.ModelSerializer):
+class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LTCform
-        fields = '__all__'
+        model = Employee
+        fields = ['id', 'employee_type', 'father_name', 'mother_name', 'religion', 'category', 'cast', 'home_state', 'home_district', 'date_of_joining', 'designation', 'blood_group']
 
-    def create(self, validated_data):
-        return LTCform.objects.create(**validated_data)
-
-
-class CPDAAdvance_serializer(serializers.ModelSerializer):
+class EmpConfidentialDetailsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CPDAAdvanceform
-        fields = '__all__'
+        model = EmpConfidentialDetails
+        fields = ['aadhar_no', 'maritial_status', 'bank_account_no', 'salary']
 
-    def create(self, validated_data):
-        return CPDAAdvanceform.objects.create(**validated_data)
-
-
-class Appraisal_serializer(serializers.ModelSerializer):
+class EmpDependentsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Appraisalform
-        fields = '__all__'
+        model = EmpDependents
+        fields = ['name', 'gender', 'dob', 'relationship']
 
-    def create(self, validated_data):
-        return Appraisalform.objects.create(**validated_data)
-
-
-class CPDAReimbursement_serializer(serializers.ModelSerializer):
-    class Meta:
-        model = CPDAReimbursementform
-        fields = '__all__'
-
-    def create(self, validated_data):
-        return CPDAReimbursementform.objects.create(**validated_data)
-
-
-class Leave_serializer(serializers.ModelSerializer):
+class LeaveFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = LeaveForm
-        fields = '__all__'
+        fields = ['id', 'employeeId', 'name', 'designation', 'submissionDate', 'pfNo', 'departmentInfo', 'natureOfLeave', 'leaveStartDate', 'leaveEndDate', 'purposeOfLeave', 'addressDuringLeave', 'academicResponsibility', 'addministrativeResponsibiltyAssigned', 'status', 'approved', 'approvedDate']
+        read_only_fields = ['status', 'approved', 'approvedDate', 'submissionDate']
 
-    def create(self, validated_data):
-        return LeaveForm.objects.create(**validated_data)
-
-
-class LeaveBalanace_serializer(serializers.ModelSerializer):
+class LeaveBalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = LeaveBalance
-        fields = '__all__'
+        fields = ['casualLeave', 'specialCasualLeave', 'earnedLeave', 'commutedLeave', 'restrictedHoliday', 'stationLeave', 'vacationLeave']
 
-    def create(self, validated_data):
-        return LeaveBalance.objects.create(**validated_data)
+class LeavePerYearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeavePerYear
+        fields = ['casual_leave', 'restricted_holiday', 'earned_leave', 'vacation_leave', 'commuted_leave', 'special_casual_leave', 'year']
 
+class LeaveClaimSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaveClaim
+        fields = ['days_taken', 'start_date', 'end_date']
 
-# class Deignations(serializers.ModelSerializer):
-#     class Meta:
-#         model = Deignations
-#         fields = '__all__'
+class LTCSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LTCform
+        fields = ['id', 'employeeId', 'name', 'blockYear', 'pfNo', 'basicPaySalary', 'designation', 'departmentInfo', 'leaveRequired', 'leaveStartDate', 'leaveEndDate', 'dateOfDepartureForFamily', 'natureOfLeave', 'purposeOfLeave', 'hometownOrNot', 'placeOfVisit', 'addressDuringLeave', 'modeofTravel', 'amountOfAdvanceRequired', 'submissionDate', 'status']
+        read_only_fields = ['status', 'submissionDate']
 
-#     def create(self,validated_data):
-#         return
+class CPDAAdvanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CPDAAdvanceform
+        fields = ['id', 'employeeId', 'name', 'designation', 'pfNo', 'purpose', 'amountRequired', 'submissionDate', 'status']
+        read_only_fields = ['status', 'submissionDate']
+
+class CPDAReimbursementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CPDAReimbursementform
+        fields = ['id', 'employeeId', 'name', 'designation', 'pfNo', 'advanceTaken', 'purpose', 'submissionDate', 'status']
+        read_only_fields = ['status', 'submissionDate']
+
+class AppraisalformSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appraisalform
+        fields = ['id', 'employeeId', 'name', 'designation', 'disciplineInfo', 'specificFieldOfKnowledge', 'currentResearchInterests', 'performanceComments', 'submissionDate', 'status']
+        read_only_fields = ['status', 'submissionDate']
+
+class FormInitialsSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    designation = serializers.CharField()
+    department = serializers.CharField()
+    pfNo = serializers.IntegerField(required=False)
+
+class LeaveInboxSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaveForm
+        fields = ['id', 'name', 'designation', 'natureOfLeave', 'leaveStartDate', 'leaveEndDate', 'status']
+
+class LeaveSearchResultSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='extra_info.user.first_name', read_only=True)
+    last_name = serializers.CharField(source='extra_info.user.last_name', read_only=True)
+    username = serializers.CharField(source='extra_info.user.username', read_only=True)
+    
+    class Meta:
+        model = Employee
+        fields = ['id', 'first_name', 'last_name', 'username', 'designation']

@@ -146,8 +146,7 @@ def service_book(request):
                'awards': awards
                }
 
-    return HttpResponseRedirect("/eis/profile/")
-    # return render(request, template, context)
+    return render(request, template, context)
 
 
 def view_employee_details(request, id):

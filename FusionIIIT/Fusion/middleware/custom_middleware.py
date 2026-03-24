@@ -9,25 +9,26 @@ def user_logged_in_middleware(get_response):
     @receiver(user_logged_in)
     def user_logged_in_handler(sender, user, request, **kwargs):
         if 'function_executed' not in request.session:
-            # Run the function only if the flag is not set
-            # Assuming user is a model with the desired data field, retrieve the data
-            # For example, if your User model has a field named 'custom_field', you can access it like:
             if user.is_authenticated:
+                try:
+                    extra_info = user.extrainfo
+                except ExtraInfo.DoesNotExist:
+                    # Superuser / admin users may not have ExtraInfo - skip session setup
+                    return
                 desig = list(HoldsDesignation.objects.select_related('user','working','designation').all().filter(working = request.user).values_list('designation'))
                 print(desig)
                 b = [i for sub in desig for i in sub]
                 design = HoldsDesignation.objects.select_related('user','designation').filter(working=request.user)
 
                 designation=[]
-                if str(user.extrainfo.user_type) == "student":
-                    designation.append(str(user.extrainfo.user_type))
-
+                if str(extra_info.user_type) == "student":
+                    designation.append(str(extra_info.user_type))
 
                 for i in design:
-                    if str(i.designation) != str(user.extrainfo.user_type):
+                    if str(i.designation) != str(extra_info.user_type):
                         print('-------')
                         print(i.designation)
-                        print(user.extrainfo.user_type)
+                        print(extra_info.user_type)
                         print('')
                         designation.append(str(i.designation))
 
