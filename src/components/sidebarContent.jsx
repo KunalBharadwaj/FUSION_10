@@ -132,7 +132,7 @@ function SidebarContent({ isCollapsed, toggleSidebar }) {
       label: "Human Resource",
       id: "hr",
       icon: <HumanResourceIcon size={18} />,
-      url: "/",
+      url: "/hr2",
     },
     {
       label: "Examination",
@@ -140,7 +140,7 @@ function SidebarContent({ isCollapsed, toggleSidebar }) {
       icon: <ExamIcon size={18} />,
       url: "/examination",
     },
-        {
+    {
       label: "Database",
       id: "database",
       icon: <DatabaseIcon size={18} />,
@@ -192,12 +192,25 @@ function SidebarContent({ isCollapsed, toggleSidebar }) {
   );
   const navigate = useNavigate();
 
+  const HR_ROLES = [
+    "acadadmin",
+    "studentacadadmin",
+    "Professor",
+    "Assistant Professor",
+    "Associate Professor",
+    "HOD",
+    "Dean Academic",
+  ];
+
   useEffect(() => {
     const filterModules = Modules.filter(
-      (module) => accessibleModules[module.id] || module.id === "home",
+      (module) =>
+        accessibleModules[module.id] ||
+        module.id === "home" ||
+        (module.id === "hr" && HR_ROLES.includes(role)),
     );
     setFilteredModules(filterModules);
-  }, [accessibleModules]);
+  }, [accessibleModules, role]);
 
   const handleModuleClick = (item) => {
     setSelected(item.label);
