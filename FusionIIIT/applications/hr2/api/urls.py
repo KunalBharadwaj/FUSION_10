@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     get_leave_balance, submit_leave_form, get_leave_requests, get_leave_inbox, handle_leave_file,
-    search_employees, LTC, CPDAAdvance, CPDAReimbursement, Appraisal
+    search_employees, LTC, CPDAAdvance, CPDAReimbursement, Appraisal, workflow_action
 )
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('cpdaadv/', CPDAAdvance.as_view(), name='cpdaadv'),
     path('cpdareim/', CPDAReimbursement.as_view(), name='cpdareim'),
     path('appraisal/', Appraisal.as_view(), name='appraisal'),
+    path('workflow_action/', workflow_action, name='workflow_action'),
 ]

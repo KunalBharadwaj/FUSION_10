@@ -1,0 +1,42 @@
+# Generated from fustion_context/HR_Master_Registry.md for GPT-5.3 Codex testing.
+workflows:
+- id: HR-WF-001
+  title: Appraisal Initiation & Completion
+  description: Appraisal Initiation & Completion workflow from HR Master Registry.
+  e2e_tests:
+  - scenario: Appraisal Initiation & Completion complete approval flow
+    expected_final_state: Workflow reaches approved/closed state with audit evidence.
+  negative_tests:
+  - scenario: Appraisal Initiation & Completion rejection/failure flow
+    expected_final_state: Workflow reaches rejected/blocked state without unintended
+      approval.
+- id: HR-WF-002
+  title: Apply for Leave & Approval
+  description: Apply for Leave & Approval workflow from HR Master Registry.
+  e2e_tests:
+  - scenario: Apply for Leave & Approval complete approval flow
+    expected_final_state: Workflow reaches approved/closed state with audit evidence.
+  negative_tests:
+  - scenario: Apply for Leave & Approval rejection/failure flow
+    expected_final_state: Workflow reaches rejected/blocked state without unintended
+      approval.
+- id: HR-WF-003
+  title: LTC Application & Settlement
+  description: LTC Application & Settlement workflow from HR Master Registry.
+  e2e_tests:
+  - scenario: LTC Application & Settlement complete approval flow
+    expected_final_state: Workflow reaches approved/closed state with audit evidence.
+  negative_tests:
+  - scenario: LTC Application & Settlement rejection/failure flow
+    expected_final_state: Workflow reaches rejected/blocked state without unintended
+      approval.
+- id: HR-WF-004
+  title: CPDA Workflow
+  description: CPDA Workflow workflow from HR Master Registry.
+  e2e_tests:
+  - scenario: CPDA Workflow complete approval flow
+    expected_final_state: Workflow reaches approved/closed state with audit evidence.
+  negative_tests:
+  - scenario: CPDA Workflow rejection/failure flow
+    expected_final_state: Workflow reaches rejected/blocked state without unintended
+      approval.

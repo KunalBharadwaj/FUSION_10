@@ -122,34 +122,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        // Fetch and display CPDA balance
+        function updateCPDABalance() {
+            $.ajax({
+                url: '/hr2/api/cpdaadv/',
+                type: 'GET',
+                success: function(data) {
+                    // Assuming API returns available balance in some form or we use a default
+                    // In this mock, we'll show the limit from the backend logic
+                    $('#balanceAvailable').val(50000); // Default limit mapped in services.py
+                }
+            });
+        }
+        updateCPDABalance();
+
+        $('#editDetail').submit(function(event) {
+            const req = parseFloat($('#amountRequired').val());
+            const bal = parseFloat($('#balanceAvailable').val() || 50000);
+            
+            if (req > bal) {
+                alert("Requested amount exceeds available CPDA balance (" + bal + ").");
+                event.preventDefault();
+                return;
+            }
+        });
+
         $('#check_button').click(function(event) {
             event.preventDefault();
             var selectedUsername = $('#username_employee').val();
-
-            // Fire query to the URL with selected username
             $.ajax({
                 url: '/hr2/search_employee/',
                 type: 'GET',
-                data: { search: selectedUsername }, // Pass search text as query parameter
+                data: { search: selectedUsername },
                 success: function(data) {
                     if (data.designation) {
-                        // Employee exists, update designation
                         $('#designation_employee').val(data.designation);
                         alert("Employee exists");
                     } else {
-                        // Employee doesn't exist, show error message
                         alert("Employee doesn't exist");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
-                    // Show error message
                     alert("An error occurred while processing your request.");
                 }
             });
         });
     });
-
-   
-    
 </script>

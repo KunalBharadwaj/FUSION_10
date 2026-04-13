@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from django.core.exceptions import ValidationError
+from django.core.exceptions import PermissionDenied, ValidationError
 
 from applications.hr2.services import (
     submit_leave_form as srv_submit_leave_form,
@@ -12,7 +12,9 @@ from applications.hr2.services import (
     submit_cpda_advance as srv_submit_cpda_advance,
     submit_cpda_reimbursement as srv_submit_cpda_reimbursement,
     submit_appraisal as srv_submit_appraisal,
-    admin_update_leave_balance as srv_admin_update_leave_balance
+    admin_update_leave_balance as srv_admin_update_leave_balance,
+    process_hr_workflow_action as srv_process_hr_workflow_action,
+    get_runtime_records as srv_get_runtime_records,
 )
 from applications.hr2.selectors import (
     get_employee_by_user, get_leave_balance as sel_get_leave_balance,
@@ -152,3 +154,21 @@ class Appraisal(APIView):
             return Response(AppraisalformSerializer(form).data, status=status.HTTP_201_CREATED)
         except ValidationError as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def workflow_action(request):
+    if request.method == 'GET':
+        return Response(srv_get_runtime_records())
+    try:
+        result = srv_process_hr_workflow_action(
+            request.user,
+            request.data.get('action'),
+            request.data.get('payload') or {},
+        )
+        return Response({"status": "success", **result})
+    except PermissionDenied as e:
+        return Response({"error": str(e)}, status=status.HTTP_403_FORBIDDEN)
+    except ValidationError as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

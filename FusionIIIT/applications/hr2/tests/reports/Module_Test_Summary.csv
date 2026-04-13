@@ -1,0 +1,25 @@
+Metric,Value
+Module,HR2 (Human Resources)
+Generated,2026-04-13 09:38
+LLM Used,GPT-5.3 Codex
+,
+Total Use Cases,25
+Total Business Rules,31
+Total Workflows,4
+,
+Required UC Tests,75
+Designed UC Tests,75
+Required BR Tests,62
+Designed BR Tests,62
+Required WF Tests,8
+Designed WF Tests,8
+,
+UC Adequacy %,100.0%
+BR Adequacy %,100.0%
+WF Adequacy %,100.0%
+,
+Total Tests Executed,145
+Total Pass,144
+Total Partial,0
+Total Fail,1
+Strict Pass Rate %,99.3%

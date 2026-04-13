@@ -1,0 +1,282 @@
+# Generated from fustion_context/HR_Master_Registry.md for GPT-5.3 Codex testing.
+business_rules:
+- id: BR-HR-001
+  title: Leave Type Eligibility
+  description: Validate Leave Type Eligibility from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-001.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-001.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-002
+  title: Annual Entitlements & Carry-Forward
+  description: Validate Annual Entitlements & Carry-Forward from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-002.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-002.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-003
+  title: Non-Overlap of Leave Periods
+  description: Validate Non-Overlap of Leave Periods from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-003.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-003.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-004
+  title: Station Leave Coupling
+  description: Validate Station Leave Coupling from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-004.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-004.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-005
+  title: Substitute Eligibility & Consent
+  description: Validate Substitute Eligibility & Consent from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-005.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-005.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-006
+  title: Substitute Not Required for Station-Only CL/RH
+  description: Validate Substitute Not Required for Station-Only CL/RH from HR Master
+    Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-006.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-006.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-007
+  title: HoD Final Scope
+  description: Validate HoD Final Scope from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-007.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-007.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-008
+  title: Sanctioning Required for SCL/HR/COL/VL
+  description: Validate Sanctioning Required for SCL/HR/COL/VL from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-008.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-008.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-009
+  title: Modify Pending Constraints
+  description: Validate Modify Pending Constraints from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-009.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-009.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-010
+  title: Withdraw Pending
+  description: Validate Withdraw Pending from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-010.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-010.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-011
+  title: Cancellation Window
+  description: Validate Cancellation Window from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-011.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-011.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-012
+  title: Resumption Window
+  description: Validate Resumption Window from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-012.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-012.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-013
+  title: Half-Day CL Rules
+  description: Validate Half-Day CL Rules from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-013.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-013.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-014
+  title: VL to HR Conversion at Year-End
+  description: Validate VL to HR Conversion at Year-End from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-014.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-014.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-015
+  title: Appraisal Submission Eligibility
+  description: Validate Appraisal Submission Eligibility from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-015.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-015.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-016
+  title: Appraisal Reviewer Assignment
+  description: Validate Appraisal Reviewer Assignment from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-016.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-016.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-017
+  title: LTC Claim Eligibility
+  description: Validate LTC Claim Eligibility from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-017.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-017.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-018
+  title: LTC Claim Financial Limits
+  description: Validate LTC Claim Financial Limits from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-018.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-018.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-019
+  title: Bill/Voucher Verification
+  description: Validate Bill/Voucher Verification from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-019.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-019.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-020
+  title: Accountant Financial Processing
+  description: Validate Accountant Financial Processing from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-020.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-020.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-021
+  title: CPDA Claim Eligibility
+  description: Validate CPDA Claim Eligibility from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-021.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-021.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-022
+  title: CPDA Expense Category
+  description: Validate CPDA Expense Category from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-022.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-022.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-023
+  title: Role-Based Access Control
+  description: Validate Role-Based Access Control from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-023.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-023.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-024
+  title: Structured Approval Hierarchy
+  description: Validate Structured Approval Hierarchy from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-024.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-024.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-025
+  title: Resolve Hierarchy / Next Approver
+  description: Validate Resolve Hierarchy / Next Approver from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-025.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-025.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-026
+  title: Director Self-Sanction
+  description: Validate Director Self-Sanction from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-026.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-026.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-027
+  title: Audit Trail Maintenance
+  description: Validate Audit Trail Maintenance from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-027.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-027.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-028
+  title: Real-time Notification Policy
+  description: Validate Real-time Notification Policy from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-028.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-028.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-029
+  title: Policy Parameters - Source of Truth
+  description: Validate Policy Parameters - Source of Truth from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-029.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-029.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-030
+  title: RH/Holiday Calendar - Source of Truth
+  description: Validate RH/Holiday Calendar - Source of Truth from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-030.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-030.
+    expected_result: Invalid condition is rejected or blocked as expected.
+- id: BR-HR-031
+  title: Integration with Payroll/Finance
+  description: Validate Integration with Payroll/Finance from HR Master Registry.
+  valid_tests:
+  - input_action: Exercise valid condition for BR-HR-031.
+    expected_result: Valid condition is accepted or enforced as expected.
+  invalid_tests:
+  - input_action: Exercise invalid condition for BR-HR-031.
+    expected_result: Invalid condition is rejected or blocked as expected.

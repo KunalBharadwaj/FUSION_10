@@ -12,10 +12,12 @@ class HR2APITests(APITestCase):
         self.user = User.objects.create_user(username='apiuser', password='password', first_name='API', last_name='User')
         self.extra_info = ExtraInfo.objects.create(id='apiuser', user=self.user, user_type='faculty')
         self.designation = Designation.objects.create(name='Assistant Professor')
-        HoldsDesignation.objects.create(user=self.user, designation=self.designation, working=True)
+        HoldsDesignation.objects.create(user=self.user, designation=self.designation, working=self.user)
         self.employee = Employee.objects.create(
             extra_info=self.extra_info,
             employee_type=Constants.EmployeeType.FACULTY,
+            category=Constants.Category.GENERAL,
+            blood_group=Constants.BloodGroup.O_POS,
             designation='Assistant Professor'
         )
         # Auth token is needed if token auth is used, but for APITestCase we can force_authenticate

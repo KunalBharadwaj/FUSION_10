@@ -14,10 +14,12 @@ class SelectorsTest(TestCase):
         self.user = User.objects.create_user(username='testemp', password='password', first_name='Test', last_name='Employee')
         self.extra_info = ExtraInfo.objects.create(id='testemp', user=self.user, user_type='faculty')
         self.designation = Designation.objects.create(name='Assistant Professor')
-        HoldsDesignation.objects.create(user=self.user, designation=self.designation, working=True)
+        HoldsDesignation.objects.create(user=self.user, designation=self.designation, working=self.user)
         self.employee = Employee.objects.create(
             extra_info=self.extra_info,
             employee_type=Constants.EmployeeType.FACULTY,
+            category=Constants.Category.GENERAL,
+            blood_group=Constants.BloodGroup.O_POS,
             designation='Assistant Professor'
         )
 
@@ -67,7 +69,9 @@ class SelectorsTest(TestCase):
     def test_get_ltc_forms(self):
         form = LTCform.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
-            submissionDate=date.today(), status=Constants.Status.PENDING, created_by=self.user
+            blockYear='2024-2026', pfNo=123, departmentInfo='CSE',
+            submissionDate=date.today(),
+            status=Constants.Status.PENDING, created_by=self.user
         )
         forms = get_ltc_forms(self.employee)
         self.assertEqual(forms.count(), 1)
@@ -84,6 +88,7 @@ class SelectorsTest(TestCase):
     def test_get_cpda_reimbursement_forms(self):
         form = CPDAReimbursementform.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
+            pfNo=123, advanceTaken=5000, purpose='Conference reimbursement',
             submissionDate=date.today(), status=Constants.Status.PENDING, created_by=self.user
         )
         forms = get_cpda_reimbursement_forms(self.employee)
@@ -92,7 +97,7 @@ class SelectorsTest(TestCase):
     def test_get_appraisal_forms(self):
         form = Appraisalform.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
-            submissionDate=date.today(), year=date.today(),
+            submissionDate=date.today(),
             status=Constants.Status.PENDING, created_by=self.user
         )
         forms = get_appraisal_forms(self.employee)

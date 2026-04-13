@@ -1,0 +1,502 @@
+# Generated from fustion_context/HR_Master_Registry.md for GPT-5.3 Codex testing.
+use_cases:
+- id: HR-UC-001
+  title: Apply for Leave
+  description: Apply for Leave from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Apply for Leave happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-001 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Apply for Leave alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-001 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Apply for Leave exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-001 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-002
+  title: Nominate Substitute(s)
+  description: Nominate Substitute(s) from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Nominate Substitute(s) happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-002 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Nominate Substitute(s) alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-002 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Nominate Substitute(s) exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-002 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-003
+  title: Respond to Substitute Request
+  description: Respond to Substitute Request from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Respond to Substitute Request happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-003 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Respond to Substitute Request alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-003 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Respond to Substitute Request exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-003 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-004
+  title: Modify Pending Request
+  description: Modify Pending Request from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Modify Pending Request happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-004 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Modify Pending Request alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-004 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Modify Pending Request exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-004 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-005
+  title: Withdraw Pending Request
+  description: Withdraw Pending Request from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Withdraw Pending Request happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-005 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Withdraw Pending Request alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-005 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Withdraw Pending Request exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-005 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-006
+  title: Acknowledge Withdrawal
+  description: Acknowledge Withdrawal from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Acknowledge Withdrawal happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-006 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Acknowledge Withdrawal alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-006 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Acknowledge Withdrawal exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-006 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-007
+  title: Request Cancellation
+  description: Request Cancellation from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Request Cancellation happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-007 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Request Cancellation alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-007 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Request Cancellation exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-007 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-008
+  title: Submit Extension Request
+  description: Submit Extension Request from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Submit Extension Request happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-008 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Submit Extension Request alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-008 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Submit Extension Request exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-008 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-009
+  title: Submit Resumption
+  description: Submit Resumption from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Submit Resumption happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-009 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Submit Resumption alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-009 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Submit Resumption exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-009 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-010
+  title: Verify Resumption
+  description: Verify Resumption from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Verify Resumption happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-010 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Verify Resumption alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-010 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Verify Resumption exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-010 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-011
+  title: View Leave Balance & History
+  description: View Leave Balance & History from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: View Leave Balance & History happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-011 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: View Leave Balance & History alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-011 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: View Leave Balance & History exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-011 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-012
+  title: Submit Yearly Appraisal
+  description: Submit Yearly Appraisal from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Submit Yearly Appraisal happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-012 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Submit Yearly Appraisal alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-012 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Submit Yearly Appraisal exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-012 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-013
+  title: Review and Route Appraisal
+  description: Review and Route Appraisal from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Review and Route Appraisal happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-013 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Review and Route Appraisal alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-013 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Review and Route Appraisal exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-013 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-014
+  title: Approve/Reject Appraisal
+  description: Approve/Reject Appraisal from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Approve/Reject Appraisal happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-014 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Approve/Reject Appraisal alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-014 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Approve/Reject Appraisal exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-014 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-015
+  title: Submit LTC Claim
+  description: Submit LTC Claim from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Submit LTC Claim happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-015 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Submit LTC Claim alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-015 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Submit LTC Claim exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-015 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-016
+  title: Verify LTC Claim
+  description: Verify LTC Claim from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Verify LTC Claim happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-016 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Verify LTC Claim alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-016 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Verify LTC Claim exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-016 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-017
+  title: Approve/Reject LTC Claim
+  description: Approve/Reject LTC Claim from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Approve/Reject LTC Claim happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-017 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Approve/Reject LTC Claim alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-017 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Approve/Reject LTC Claim exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-017 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-018
+  title: Submit CPDA Claim
+  description: Submit CPDA Claim from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Submit CPDA Claim happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-018 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Submit CPDA Claim alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-018 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Submit CPDA Claim exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-018 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-019
+  title: Process Financial Claim
+  description: Process Financial Claim from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Process Financial Claim happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-019 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Process Financial Claim alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-019 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Process Financial Claim exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-019 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-020
+  title: HoD Decision
+  description: HoD Decision from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: HoD Decision happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-020 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: HoD Decision alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-020 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: HoD Decision exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-020 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-021
+  title: Sanctioning Decision
+  description: Sanctioning Decision from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Sanctioning Decision happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-021 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Sanctioning Decision alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-021 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Sanctioning Decision exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-021 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-022
+  title: Run Year-End Leave Closure
+  description: Run Year-End Leave Closure from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Run Year-End Leave Closure happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-022 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Run Year-End Leave Closure alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-022 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Run Year-End Leave Closure exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-022 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-023
+  title: SLA Engine
+  description: SLA Engine from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: SLA Engine happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-023 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: SLA Engine alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-023 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: SLA Engine exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-023 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-024
+  title: Maintain Leave Policy Parameters
+  description: Maintain Leave Policy Parameters from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Maintain Leave Policy Parameters happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-024 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Maintain Leave Policy Parameters alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-024 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Maintain Leave Policy Parameters exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-024 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.
+- id: HR-UC-025
+  title: Maintain Holiday/RH Calendar
+  description: Maintain Holiday/RH Calendar from HR Master Registry.
+  actors: Employee / HR role / System as specified
+  preconditions: Authenticated HR2 fixture data unless exception case states otherwise.
+  happy_paths:
+  - scenario: Maintain Holiday/RH Calendar happy path
+    preconditions: Valid HR2 fixture data exists.
+    input_action: Execute HR-UC-025 primary backend/API action.
+    expected_result: Action completes and expected HR2 state or evidence is recorded.
+  alternate_paths:
+  - scenario: Maintain Holiday/RH Calendar alternate path
+    preconditions: Valid HR2 fixture data exists with optional or alternate inputs.
+    input_action: Execute HR-UC-025 alternate backend/API action.
+    expected_result: Alternate behavior completes and state or evidence is recorded.
+  exception_paths:
+  - scenario: Maintain Holiday/RH Calendar exception path
+    preconditions: Invalid or unauthorized HR2 input is supplied.
+    input_action: Execute HR-UC-025 invalid backend/API action.
+    expected_result: Invalid action is rejected without unintended state change.

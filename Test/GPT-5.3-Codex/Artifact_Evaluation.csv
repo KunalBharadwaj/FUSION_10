@@ -1,0 +1,61 @@
+Artifact ID,Artifact Type,Tests,Pass,Partial,Fail,Final Status,Remarks
+HR-UC-001,UC,3,3,0,0,Implemented Correctly,Apply for Leave
+HR-UC-002,UC,3,3,0,0,Implemented Correctly,Nominate Substitute(s)
+HR-UC-003,UC,3,3,0,0,Implemented Correctly,Respond to Substitute Request
+HR-UC-004,UC,3,3,0,0,Implemented Correctly,Modify Pending Request
+HR-UC-005,UC,3,3,0,0,Implemented Correctly,Withdraw Pending Request
+HR-UC-006,UC,3,3,0,0,Implemented Correctly,Acknowledge Withdrawal
+HR-UC-007,UC,3,3,0,0,Implemented Correctly,Request Cancellation
+HR-UC-008,UC,3,3,0,0,Implemented Correctly,Submit Extension Request
+HR-UC-009,UC,3,3,0,0,Implemented Correctly,Submit Resumption
+HR-UC-010,UC,3,3,0,0,Implemented Correctly,Verify Resumption
+HR-UC-011,UC,3,3,0,0,Implemented Correctly,View Leave Balance & History
+HR-UC-012,UC,3,3,0,0,Implemented Correctly,Submit Yearly Appraisal
+HR-UC-013,UC,3,3,0,0,Implemented Correctly,Review and Route Appraisal
+HR-UC-014,UC,3,3,0,0,Implemented Correctly,Approve/Reject Appraisal
+HR-UC-015,UC,3,3,0,0,Implemented Correctly,Submit LTC Claim
+HR-UC-016,UC,3,3,0,0,Implemented Correctly,Verify LTC Claim
+HR-UC-017,UC,3,3,0,0,Implemented Correctly,Approve/Reject LTC Claim
+HR-UC-018,UC,3,3,0,0,Implemented Correctly,Submit CPDA Claim
+HR-UC-019,UC,3,3,0,0,Implemented Correctly,Process Financial Claim
+HR-UC-020,UC,3,3,0,0,Implemented Correctly,HoD Decision
+HR-UC-021,UC,3,3,0,0,Implemented Correctly,Sanctioning Decision
+HR-UC-022,UC,3,3,0,0,Implemented Correctly,Run Year-End Leave Closure
+HR-UC-023,UC,3,3,0,0,Implemented Correctly,SLA Engine
+HR-UC-024,UC,3,3,0,0,Implemented Correctly,Maintain Leave Policy Parameters
+HR-UC-025,UC,3,3,0,0,Implemented Correctly,Maintain Holiday/RH Calendar
+BR-HR-001,BR,2,2,0,0,Enforced Correctly,Leave Type Eligibility
+BR-HR-002,BR,2,2,0,0,Enforced Correctly,Annual Entitlements & Carry-Forward
+BR-HR-003,BR,2,2,0,0,Enforced Correctly,Non-Overlap of Leave Periods
+BR-HR-004,BR,2,2,0,0,Enforced Correctly,Station Leave Coupling
+BR-HR-005,BR,2,2,0,0,Enforced Correctly,Substitute Eligibility & Consent
+BR-HR-006,BR,2,2,0,0,Enforced Correctly,Substitute Not Required for Station-Only CL/RH
+BR-HR-007,BR,2,2,0,0,Enforced Correctly,HoD Final Scope
+BR-HR-008,BR,2,2,0,0,Enforced Correctly,Sanctioning Required for SCL/HR/COL/VL
+BR-HR-009,BR,2,2,0,0,Enforced Correctly,Modify Pending Constraints
+BR-HR-010,BR,2,2,0,0,Enforced Correctly,Withdraw Pending
+BR-HR-011,BR,2,2,0,0,Enforced Correctly,Cancellation Window
+BR-HR-012,BR,2,2,0,0,Enforced Correctly,Resumption Window
+BR-HR-013,BR,2,2,0,0,Enforced Correctly,Half-Day CL Rules
+BR-HR-014,BR,2,2,0,0,Enforced Correctly,VL to HR Conversion at Year-End
+BR-HR-015,BR,2,2,0,0,Enforced Correctly,Appraisal Submission Eligibility
+BR-HR-016,BR,2,2,0,0,Enforced Correctly,Appraisal Reviewer Assignment
+BR-HR-017,BR,2,2,0,0,Enforced Correctly,LTC Claim Eligibility
+BR-HR-018,BR,2,2,0,0,Enforced Correctly,LTC Claim Financial Limits
+BR-HR-019,BR,2,2,0,0,Enforced Correctly,Bill/Voucher Verification
+BR-HR-020,BR,2,2,0,0,Enforced Correctly,Accountant Financial Processing
+BR-HR-021,BR,2,1,0,1,Partially Enforced,CPDA Claim Eligibility
+BR-HR-022,BR,2,2,0,0,Enforced Correctly,CPDA Expense Category
+BR-HR-023,BR,2,2,0,0,Enforced Correctly,Role-Based Access Control
+BR-HR-024,BR,2,2,0,0,Enforced Correctly,Structured Approval Hierarchy
+BR-HR-025,BR,2,2,0,0,Enforced Correctly,Resolve Hierarchy / Next Approver
+BR-HR-026,BR,2,2,0,0,Enforced Correctly,Director Self-Sanction
+BR-HR-027,BR,2,2,0,0,Enforced Correctly,Audit Trail Maintenance
+BR-HR-028,BR,2,2,0,0,Enforced Correctly,Real-time Notification Policy
+BR-HR-029,BR,2,2,0,0,Enforced Correctly,Policy Parameters - Source of Truth
+BR-HR-030,BR,2,2,0,0,Enforced Correctly,RH/Holiday Calendar - Source of Truth
+BR-HR-031,BR,2,2,0,0,Enforced Correctly,Integration with Payroll/Finance
+HR-WF-001,WF,2,2,0,0,Complete,Appraisal Initiation & Completion
+HR-WF-002,WF,2,2,0,0,Complete,Apply for Leave & Approval
+HR-WF-003,WF,2,2,0,0,Complete,LTC Application & Settlement
+HR-WF-004,WF,2,2,0,0,Complete,CPDA Workflow

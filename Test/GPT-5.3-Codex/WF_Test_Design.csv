@@ -1,0 +1,9 @@
+Test ID,WF ID,Test Category,Scenario,Expected Final State
+HR-WF-001-E2E-01,HR-WF-001,End-to-End,Appraisal Initiation & Completion complete approval flow,Workflow reaches approved/closed state with audit evidence.
+HR-WF-001-NEG-01,HR-WF-001,Negative,Appraisal Initiation & Completion rejection/failure flow,Workflow reaches rejected/blocked state without unintended approval.
+HR-WF-002-E2E-01,HR-WF-002,End-to-End,Apply for Leave & Approval complete approval flow,Workflow reaches approved/closed state with audit evidence.
+HR-WF-002-NEG-01,HR-WF-002,Negative,Apply for Leave & Approval rejection/failure flow,Workflow reaches rejected/blocked state without unintended approval.
+HR-WF-003-E2E-01,HR-WF-003,End-to-End,LTC Application & Settlement complete approval flow,Workflow reaches approved/closed state with audit evidence.
+HR-WF-003-NEG-01,HR-WF-003,Negative,LTC Application & Settlement rejection/failure flow,Workflow reaches rejected/blocked state without unintended approval.
+HR-WF-004-E2E-01,HR-WF-004,End-to-End,CPDA Workflow complete approval flow,Workflow reaches approved/closed state with audit evidence.
+HR-WF-004-NEG-01,HR-WF-004,Negative,CPDA Workflow rejection/failure flow,Workflow reaches rejected/blocked state without unintended approval.

@@ -381,33 +381,35 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        // Enforce Jan-Feb submission window
+        const now = new Date();
+        const month = now.getMonth() + 1; // getMonth is 0-indexed
+        if (month > 2) {
+             $('#ltc_form').append('<div class="ui warning message">Appraisal submission window (Jan-Feb) is currently closed. Form is ready-only.</div>');
+             $('#ltc_form input, #ltc_form textarea, #ltc_form button[type="submit"]').attr('disabled', 'disabled');
+        }
+
         $('#check_button').click(function(event) {
             event.preventDefault();
             var selectedUsername = $('#username_employee').val();
-
-            // Fire query to the URL with selected username
             $.ajax({
                 url: '/hr2/search_employee/',
                 type: 'GET',
-                data: { search: selectedUsername }, // Pass search text as query parameter
+                data: { search: selectedUsername },
                 success: function(data) {
                     if (data.designation) {
-                        // Employee exists, update designation
                         $('#designation_employee').val(data.designation);
                         alert("Employee exists");
                     } else {
-                        // Employee doesn't exist, show error message
                         alert("Employee doesn't exist");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
-                    // Show error message
                     alert("An error occurred while processing your request.");
                 }
             });
         });
     });
-
 </script>
 

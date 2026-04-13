@@ -16,7 +16,17 @@ def get_leave_balance(employee):
     leave_per_year = LeavePerYear.objects.last() 
     if not leave_per_year:
         leave_per_year = LeavePerYear.objects.create()
-    balance, created = LeaveBalance.objects.get_or_create(employeeId=employee.extra_info)
+    balance, created = LeaveBalance.objects.get_or_create(
+        employeeId=employee.extra_info,
+        defaults={
+            'casualLeave': leave_per_year.casual_leave,
+            'earnedLeave': leave_per_year.earned_leave,
+            'restrictedHoliday': leave_per_year.restricted_holiday,
+            'vacationLeave': leave_per_year.vacation_leave,
+            'commutedLeave': leave_per_year.commuted_leave,
+            'specialCasualLeave': leave_per_year.special_casual_leave,
+        }
+    )
     return balance, leave_per_year
 
 def get_leave_forms(employee, from_date=None):

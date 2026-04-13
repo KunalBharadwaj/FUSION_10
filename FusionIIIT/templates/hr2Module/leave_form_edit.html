@@ -148,6 +148,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        // Fetch and display leave balances
+        function updateLeaveBalances() {
+            $.ajax({
+                url: '/hr2/api/get_leave_balance/',
+                type: 'GET',
+                success: function(data) {
+                    if (data.leave_balance) {
+                        const b = data.leave_balance;
+                        $('#natureOfLeave option[value="Casual"]').text(`Casual (Balance: ${b.casual_leave})`);
+                        $('#natureOfLeave option[value="vacaction"]').text(`Vacation (Balance: ${b.vacation_leave})`);
+                        $('#natureOfLeave option[value="earned"]').text(`Earned (Balance: ${b.earned_leave})`);
+                        $('#natureOfLeave option[value="commuted leave"]').text(`Commuted (Balance: ${b.commuted_leave})`);
+                        $('#natureOfLeave option[value="specail casual leave"]').text(`Special Casual (Balance: ${b.special_casual_leave})`);
+                        $('#natureOfLeave option[value="restricted leave"]').text(`Restricted (Balance: ${b.restricted_holiday})`);
+                    }
+                }
+            });
+        }
+        updateLeaveBalances();
+
+        $('#editDetail').submit(function(event) {
+            const startVal = $('#leaveStartDate').val();
+            const endVal = $('#leaveEndDate').val();
+            const nature = $('#natureOfLeave').val();
+
+            if (!startVal) return;
+            
+            const start = new Date(startVal);
+            const end = nature === 'Casual' ? start : new Date(endVal);
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            if (start < today && nature !== 'Casual') {
+                alert("Leave cannot be applied for past dates.");
+                event.preventDefault();
+                return;
+            }
+
+            if (nature !== 'Casual' && endVal && end < start) {
+                alert("End date cannot be before start date.");
+                event.preventDefault();
+                return;
+            }
+        });
+
         $('#check_button').click(function(event) {
             event.preventDefault();
             var selectedUsername = $('#username_employee').val();

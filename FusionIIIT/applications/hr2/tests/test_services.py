@@ -70,7 +70,7 @@ class ServicesTest(TestCase):
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
             submissionDate=date.today(), status=Constants.Status.PENDING, created_by=self.user
         )
-        updated_form = handle_leave_file(form.id, self.user, 'REJECT', 'Denied')
+        updated_form = handle_leave_file(form.id, self.user, 'REJECT', 'Denied after review')
         self.assertEqual(updated_form.status, Constants.Status.REJECTED)
 
     def test_submit_ltc_form(self):
@@ -123,7 +123,7 @@ class ServicesTest(TestCase):
         # Create hr admin
         admin_user = User.objects.create_user(username='admin', password='password')
         hr_desig, _ = Designation.objects.get_or_create(name='HR_Admin')
-        HoldsDesignation.objects.create(user=admin_user, designation=hr_desig, working=True)
+        HoldsDesignation.objects.create(user=admin_user, designation=hr_desig, working=admin_user)
         
         data = {'casualLeave': 10, 'earnedLeave': 15, 'restrictedHoliday': 2}
         balance = admin_update_leave_balance(admin_user, self.employee.id, data)
