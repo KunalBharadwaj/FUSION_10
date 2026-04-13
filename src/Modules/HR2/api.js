@@ -10,6 +10,7 @@ import {
   cpdaAdvanceRoute,
   cpdaReimbursementRoute,
   appraisalRoute,
+  workflowActionRoute,
 } from "../../routes/hr2Routes";
 
 const getAuthHeaders = () => {
@@ -111,6 +112,22 @@ export const submitCPDAReimbursementForm = async (formData) => {
 export const submitAppraisalForm = async (formData) => {
   const { data } = await axios.post(appraisalRoute, formData, {
     headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+  });
+  return data;
+};
+
+export const runWorkflowAction = async (action, payload = {}) => {
+  const { data } = await axios.post(
+    workflowActionRoute,
+    { action, payload },
+    { headers: { ...getAuthHeaders(), "Content-Type": "application/json" } },
+  );
+  return data;
+};
+
+export const fetchWorkflowRecords = async () => {
+  const { data } = await axios.get(workflowActionRoute, {
+    headers: getAuthHeaders(),
   });
   return data;
 };

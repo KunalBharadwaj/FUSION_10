@@ -9,6 +9,7 @@ import LTC from "./LTC";
 import CPDAAdvance from "./CPDAAdvance";
 import CPDAReimbursement from "./CPDAReimbursement";
 import Appraisal from "./Appraisal";
+import WorkflowActions from "./WorkflowActions";
 import HRAccessInfo from "./components/HRAccessInfo";
 import ProtectedRoute from "./routes/protectedRoutes";
 
@@ -95,6 +96,14 @@ export default function HR2() {
           element={
             <ProtectedRoute roles={HR_ROLES}>
               <Appraisal />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/workflow-actions"
+          element={
+            <ProtectedRoute roles={HR_ROLES}>
+              <WorkflowActions />
             </ProtectedRoute>
           }
         />

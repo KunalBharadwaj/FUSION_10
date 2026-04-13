@@ -57,6 +57,11 @@ export default function Nav() {
       roles: HR_ROLES,
     },
     { title: "Appraisal", path: "/hr2/appraisal", roles: HR_ROLES },
+    {
+      title: "Workflow Actions",
+      path: "/hr2/workflow-actions",
+      roles: HR_ROLES,
+    },
   ];
 
   const filteredTabs = tabItems.filter((tab) => tab.roles.includes(userRole));

@@ -9,6 +9,7 @@ export const hr2LTCPath = "/hr2/ltc";
 export const hr2CPDAAdvancePath = "/hr2/cpda-advance";
 export const hr2CPDAReimbursementPath = "/hr2/cpda-reimbursement";
 export const hr2AppraisalPath = "/hr2/appraisal";
+export const hr2WorkflowPath = "/hr2/workflow-actions";
 export const hr2InfoPath = "/hr2/info";
 
 // API routes (Backend selectors / services)
@@ -23,3 +24,4 @@ export const ltcRoute = `${hr2Base}/ltc/`;
 export const cpdaAdvanceRoute = `${hr2Base}/cpdaadv/`;
 export const cpdaReimbursementRoute = `${hr2Base}/cpdareim/`;
 export const appraisalRoute = `${hr2Base}/appraisal/`;
+export const workflowActionRoute = `${hr2Base}/workflow_action/`;
