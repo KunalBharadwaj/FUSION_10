@@ -60,11 +60,28 @@ class HR2APITests(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_search_employees(self):
+        colleague_user = User.objects.create_user(
+            username='api_colleague',
+            password='password',
+            first_name='API',
+            last_name='Colleague'
+        )
+        colleague_info = ExtraInfo.objects.create(id='api_colleague', user=colleague_user, user_type='faculty')
+        Employee.objects.create(
+            extra_info=colleague_info,
+            employee_type=Constants.EmployeeType.FACULTY,
+            category=Constants.Category.GENERAL,
+            blood_group=Constants.BloodGroup.O_POS,
+            designation='Assistant Professor'
+        )
+
         url = '/hr2/api/search-employees/?q=API'
         response = self.client.get(url)
         if response.status_code != 404:
             self.assertEqual(response.status_code, status.HTTP_200_OK)
-            self.assertTrue(len(response.data) > 0)
+            usernames = [item.get('username') for item in response.data]
+            self.assertIn('api_colleague', usernames)
+            self.assertNotIn('apiuser', usernames)
 
     def test_ltc_endpoint(self):
         url = '/hr2/api/ltc/'

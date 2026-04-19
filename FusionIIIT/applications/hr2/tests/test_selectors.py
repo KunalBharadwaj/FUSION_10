@@ -56,6 +56,10 @@ class SelectorsTest(TestCase):
         self.assertIsNotNone(fetched)
         self.assertEqual(fetched.id, form.id)
 
+    def test_get_leave_form_by_id_not_found(self):
+        fetched = get_leave_form_by_id(999999)
+        self.assertIsNone(fetched)
+
     def test_get_leave_inbox(self):
         form = LeaveForm.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',

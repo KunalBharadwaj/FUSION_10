@@ -45,6 +45,20 @@ class ServicesTest(TestCase):
         with self.assertRaises(ValidationError):
             submit_leave_form(self.user, data)
 
+    def test_submit_leave_form_requires_address_when_out_of_jabalpur(self):
+        data = {
+            'pfNo': 1234,
+            'departmentInfo': 'CSE',
+            'natureOfLeave': 'casual_leave',
+            'leaveStartDate': '2026-04-01',
+            'leaveEndDate': '2026-04-02',
+            'purposeOfLeave': 'Personal',
+            'outOfJabalpur': True,
+            'addressDuringLeave': '',
+        }
+        with self.assertRaises(ValidationError):
+            submit_leave_form(self.user, data)
+
     def test_handle_leave_file_forward(self):
         form = LeaveForm.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
@@ -72,6 +86,14 @@ class ServicesTest(TestCase):
         )
         updated_form = handle_leave_file(form.id, self.user, 'REJECT', 'Denied after review')
         self.assertEqual(updated_form.status, Constants.Status.REJECTED)
+
+    def test_handle_leave_file_reject_requires_meaningful_remarks(self):
+        form = LeaveForm.objects.create(
+            employeeId=self.employee.id, name='Test', designation='Assistant Professor',
+            submissionDate=date.today(), status=Constants.Status.PENDING, created_by=self.user
+        )
+        with self.assertRaises(ValidationError):
+            handle_leave_file(form.id, self.user, 'REJECT', 'Too short')
 
     def test_submit_ltc_form(self):
         data = {'blockYear': '2024-2026', 'pfNo': 123, 'basicPaySalary': 50000}
