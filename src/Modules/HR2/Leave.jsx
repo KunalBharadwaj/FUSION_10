@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Loader, Alert, Tabs } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { fetchLeaveBalance, fetchLeaveRequests, submitLeaveForm } from "./api";
+import { getApiErrorMessage } from "../../utils/apiError";
 import LeaveBalanceCard from "./components/LeaveBalanceCard";
 import LeaveApplyForm from "./components/LeaveApplyForm";
 import LeaveRequestsTable from "./components/LeaveRequestsTable";
@@ -34,9 +35,7 @@ export default function Leave() {
       setBalance(bal);
       setRequests(Array.isArray(reqs) ? reqs : []);
     } catch (err) {
-      setError(
-        err.response?.data?.error || err.message || "Failed to load data",
-      );
+      setError(getApiErrorMessage(err, "Failed to load data."));
     } finally {
       setLoading(false);
     }
@@ -61,7 +60,7 @@ export default function Leave() {
     } catch (err) {
       notifications.show({
         title: "Error",
-        message: err.response?.data?.error || "Failed to submit",
+        message: getApiErrorMessage(err, "Failed to submit leave request."),
         color: "red",
       });
     } finally {

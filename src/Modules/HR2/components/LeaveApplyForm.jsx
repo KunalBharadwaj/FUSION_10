@@ -8,7 +8,9 @@ import {
   Textarea,
   Select,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { searchEmployees } from "../api";
+import { getApiErrorMessage } from "../../../utils/apiError";
 
 export default function LeaveApplyForm({
   form,
@@ -28,7 +30,13 @@ export default function LeaveApplyForm({
           })),
         );
       })
-      .catch(() => {});
+      .catch((error) => {
+        notifications.show({
+          title: "Could not load employees",
+          message: getApiErrorMessage(error, "Please retry in a few moments."),
+          color: "orange",
+        });
+      });
   }, []);
 
   return (
