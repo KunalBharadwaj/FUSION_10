@@ -348,18 +348,21 @@ def user(request):
         elif comp_type == 'other':
             complaint_finish = datetime.now() + timedelta(days=3)
         
-        if location!="":
-           
-            user_details=User.objects.get(id=y.user_id)
+        if location == "":
+            messages.error(request, "Please select a valid complaint location.")
+            return HttpResponseRedirect('/complaint/user')
 
-            obj1, created = StudentComplain.objects.get_or_create(complainer=y,
-                                complaint_type=comp_type,
-                                location=location,
-                                specific_location=specific_location,
-                                details=details,
-                                status=status,
-                                complaint_finish=complaint_finish,
-                                upload_complaint=comp_file)
+        user_details = User.objects.get(id=y.user_id)
+        obj1, created = StudentComplain.objects.get_or_create(
+            complainer=y,
+            complaint_type=comp_type,
+            location=location,
+            specific_location=specific_location,
+            details=details,
+            status=status,
+            complaint_finish=complaint_finish,
+            upload_complaint=comp_file,
+        )
 
 
         
@@ -390,18 +393,32 @@ def user(request):
           dsgn ="phcaretaker"
         else:
           dsgn = "rewacaretaker"
-        caretaker_name = HoldsDesignation.objects.select_related('user','working','designation').get(designation__name = dsgn)
-    
-        c1=HoldsDesignation.objects.filter(user_id=y.user_id).all()
-        print(c1[0].designation)
-        file_id = create_file(uploader=user_details.username, 
-        uploader_designation=c1[0].designation, 
-        receiver=caretaker_name.user.username,
-        receiver_designation=caretaker_name.designation, 
-        src_module="complaint", 
-        src_object_id= str(obj1.id), 
-        file_extra_JSON= {}, 
-        attached_file = None)
+        caretaker_name = HoldsDesignation.objects.select_related('user', 'working', 'designation').filter(
+            designation__name=dsgn
+        ).first()
+        if not caretaker_name:
+            messages.error(request, "No caretaker is configured for the selected location.")
+            return HttpResponseRedirect('/complaint/user')
+
+        user_designation = HoldsDesignation.objects.filter(user_id=y.user_id).first()
+        if not user_designation:
+            messages.error(request, "Your designation is not configured. Please contact admin.")
+            return HttpResponseRedirect('/complaint/user')
+
+        try:
+            file_id = create_file(
+                uploader=user_details.username,
+                uploader_designation=user_designation.designation,
+                receiver=caretaker_name.user.username,
+                receiver_designation=caretaker_name.designation,
+                src_module="complaint",
+                src_object_id=str(obj1.id),
+                file_extra_JSON={},
+                attached_file=None,
+            )
+        except Exception:
+            messages.error(request, "Complaint created, but routing failed. Please contact admin.")
+            return HttpResponseRedirect('/complaint/user')
             
         # print("  wertyuioiuhygfdsdfghjk")
         print(file_id)
@@ -435,8 +452,14 @@ def user(request):
         #     notification_message.append(notification.verb+' by '+ to + ' ' + duration + ' ago ')
         
 
-        c1=HoldsDesignation.objects.filter(user_id=y.user_id).all()
-        print(c1[0].designation)
+        user_designation = HoldsDesignation.objects.filter(user_id=y.user_id).first()
+        if not user_designation:
+            messages.error(request, "Your designation is not configured. Please contact admin.")
+            return render(
+                request,
+                "complaintModule/complaint_user.html",
+                {'outbox': [], 'notification': notification, 'comp_id': y.id, 'history': []},
+            )
         # c2=Designation.objects.filter(i)
 
        
@@ -444,7 +467,7 @@ def user(request):
         
         outbox_files = view_outbox(
             username=user_details.username,
-            designation=c1[0].designation,
+            designation=user_designation.designation,
             src_module="complaint"
         )
         print(outbox_files)
@@ -459,10 +482,12 @@ def user(request):
             file_history = view_history(file_id=i['id'])
             print(i['id'])
             comp=File.objects.filter(id=i['id'])
+            if not comp:
+                continue
             print(comp[0].src_object_id)
             complaint=StudentComplain.objects.all().filter(id=comp[0].src_object_id)
             print(complaint)
-            if complaint[0].complainer.user.username == user_details.username :
+            if complaint and complaint[0].complainer.user.username == user_details.username:
                 comp_list.add(complaint)
             # file_history = view_history(file_id=i['id'])
 
