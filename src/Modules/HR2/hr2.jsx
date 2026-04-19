@@ -13,14 +13,51 @@ import WorkflowActions from "./WorkflowActions";
 import HRAccessInfo from "./components/HRAccessInfo";
 import ProtectedRoute from "./routes/protectedRoutes";
 
+// All roles that can access the HR2 module
 const HR_ROLES = [
-  "acadadmin",
-  "studentacadadmin",
+  // Faculty / Employee submitter roles
+  "faculty",
+  "staff",
   "Professor",
   "Assistant Professor",
   "Associate Professor",
-  "HOD",
+  "Employee",
   "Dean Academic",
+  "acadadmin",
+  "studentacadadmin",
+  // Approval / management roles
+  "HOD",
+  "Director",
+  "Registrar",
+  "HR Admin",
+  "HR Administrator",
+  "Accountant",
+  "Finance",
+];
+
+// Roles that can SUBMIT new forms
+export const APPLY_ROLES = [
+  "faculty",
+  "staff",
+  "Professor",
+  "Assistant Professor",
+  "Associate Professor",
+  "Employee",
+  "Dean Academic",
+  "HOD",
+  "acadadmin",
+  "studentacadadmin",
+];
+
+// Roles that APPROVE / process forms from the Inbox
+export const APPROVAL_ROLES = [
+  "HOD",
+  "Director",
+  "Registrar",
+  "HR Admin",
+  "HR Administrator",
+  "Accountant",
+  "Finance",
 ];
 
 export default function HR2() {
@@ -39,6 +76,10 @@ export default function HR2() {
 
   const defaultRedirectPath = () => {
     if (!hasHRAccess) return "/hr2/info";
+    // Approval-only roles go straight to CPDA Advance Inbox
+    if (APPROVAL_ROLES.includes(userRole) && !APPLY_ROLES.includes(userRole)) {
+      return "/hr2/cpda-advance";
+    }
     return "/hr2/leave";
   };
 

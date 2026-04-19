@@ -25,3 +25,8 @@ export const cpdaAdvanceRoute = `${hr2Base}/cpdaadv/`;
 export const cpdaReimbursementRoute = `${hr2Base}/cpdareim/`;
 export const appraisalRoute = `${hr2Base}/appraisal/`;
 export const workflowActionRoute = `${hr2Base}/workflow_action/`;
+
+export const ltcInboxRoute = `${hr2Base}/ltc-inbox/`;
+export const cpdaAdvanceInboxRoute = `${hr2Base}/cpdaadv-inbox/`;
+export const cpdaReimbursementInboxRoute = `${hr2Base}/cpdareim-inbox/`;
+export const appraisalInboxRoute = `${hr2Base}/appraisal-inbox/`;

@@ -192,14 +192,16 @@ function SidebarContent({ isCollapsed, toggleSidebar }) {
   );
   const navigate = useNavigate();
 
+  // All roles that can access the HR2 module via sidebar
   const HR_ROLES = [
-    "acadadmin",
-    "studentacadadmin",
-    "Professor",
-    "Assistant Professor",
-    "Associate Professor",
-    "HOD",
-    "Dean Academic",
+    "faculty", "staff",
+    "Professor", "Assistant Professor", "Associate Professor",
+    "Employee", "Dean Academic",
+    "acadadmin", "studentacadadmin",
+    // Approval / management roles
+    "HOD", "Director", "Registrar",
+    "HR Admin", "HR Administrator",
+    "Accountant", "Finance",
   ];
 
   useEffect(() => {

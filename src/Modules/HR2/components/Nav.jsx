@@ -37,34 +37,44 @@ export default function Nav() {
     borderBottom: "2px solid #e0e0e0",
   };
 
+  // All roles that can access HR2
   const HR_ROLES = [
-    "acadadmin",
-    "studentacadadmin",
-    "Professor",
-    "Assistant Professor",
-    "Associate Professor",
-    "HOD",
-    "Dean Academic",
-  ];
-  const tabItems = [
-    { title: "Leave", path: "/hr2/leave", roles: HR_ROLES },
-    { title: "Leave Inbox", path: "/hr2/leave-inbox", roles: HR_ROLES },
-    { title: "LTC", path: "/hr2/ltc", roles: HR_ROLES },
-    { title: "CPDA Advance", path: "/hr2/cpda-advance", roles: HR_ROLES },
-    {
-      title: "CPDA Reimbursement",
-      path: "/hr2/cpda-reimbursement",
-      roles: HR_ROLES,
-    },
-    { title: "Appraisal", path: "/hr2/appraisal", roles: HR_ROLES },
-    {
-      title: "Workflow Actions",
-      path: "/hr2/workflow-actions",
-      roles: HR_ROLES,
-    },
+    "faculty", "staff", "Professor", "Assistant Professor", "Associate Professor",
+    "Employee", "Dean Academic", "acadadmin", "studentacadadmin",
+    "HOD", "Director", "Registrar", "HR Admin", "HR Administrator",
+    "Accountant", "Finance",
   ];
 
-  const filteredTabs = tabItems.filter((tab) => tab.roles.includes(userRole));
+  // Roles that submit forms
+  const APPLY_ROLES = [
+    "faculty", "staff", "Professor", "Assistant Professor", "Associate Professor",
+    "Employee", "Dean Academic", "HOD", "acadadmin", "studentacadadmin",
+  ];
+
+  // Roles that approve (have an inbox)
+  const APPROVAL_ROLES = [
+    "HOD", "Director", "Registrar", "HR Admin", "HR Administrator",
+    "Accountant", "Finance",
+  ];
+
+  const canApply = APPLY_ROLES.includes(userRole);
+  const canApprove = APPROVAL_ROLES.includes(userRole);
+
+  const tabItems = [
+    // Employee/Faculty-only tabs
+    { title: "Leave", path: "/hr2/leave", show: canApply },
+    { title: "Leave Inbox", path: "/hr2/leave-inbox", show: canApprove },
+    // Shared module tabs (everyone with HR access sees them, Inbox/Apply within handled per-role)
+    { title: "LTC", path: "/hr2/ltc", show: true },
+    { title: "CPDA Advance", path: "/hr2/cpda-advance", show: true },
+    { title: "CPDA Reimbursement", path: "/hr2/cpda-reimbursement", show: true },
+    { title: "Appraisal", path: "/hr2/appraisal", show: true },
+    { title: "Workflow Actions", path: "/hr2/workflow-actions", show: canApply },
+  ];
+
+  const filteredTabs = tabItems.filter(
+    (tab) => HR_ROLES.includes(userRole) && tab.show,
+  );
 
   if (filteredTabs.length === 0) return null;
 

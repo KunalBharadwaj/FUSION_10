@@ -12,6 +12,10 @@ import {
   cpdaReimbursementRoute,
   appraisalRoute,
   workflowActionRoute,
+  ltcInboxRoute,
+  cpdaAdvanceInboxRoute,
+  cpdaReimbursementInboxRoute,
+  appraisalInboxRoute,
 } from "../../routes/hr2Routes";
 
 const getAuthHeaders = () => {
@@ -132,6 +136,50 @@ export const fetchAppraisalForms = async () => {
     return data;
   } catch (error) {
     withApiError(error, "Failed to fetch appraisal forms.");
+  }
+};
+
+export const fetchLTCInbox = async () => {
+  try {
+    const { data } = await axios.get(ltcInboxRoute, {
+      headers: getAuthHeaders(),
+    });
+    return data;
+  } catch (error) {
+    withApiError(error, "Failed to fetch LTC inbox.");
+  }
+};
+
+export const fetchCPDAAdvanceInbox = async () => {
+  try {
+    const { data } = await axios.get(cpdaAdvanceInboxRoute, {
+      headers: getAuthHeaders(),
+    });
+    return data;
+  } catch (error) {
+    withApiError(error, "Failed to fetch CPDA advance inbox.");
+  }
+};
+
+export const fetchCPDAReimbursementInbox = async () => {
+  try {
+    const { data } = await axios.get(cpdaReimbursementInboxRoute, {
+      headers: getAuthHeaders(),
+    });
+    return data;
+  } catch (error) {
+    withApiError(error, "Failed to fetch CPDA reimbursement inbox.");
+  }
+};
+
+export const fetchAppraisalInbox = async () => {
+  try {
+    const { data } = await axios.get(appraisalInboxRoute, {
+      headers: getAuthHeaders(),
+    });
+    return data;
+  } catch (error) {
+    withApiError(error, "Failed to fetch appraisal inbox.");
   }
 };
 
