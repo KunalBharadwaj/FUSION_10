@@ -33,18 +33,26 @@ def login(request):
     user = get_and_authenticate_user(**serializer.validated_data)
     data = serializers.AuthUserSerializer(user).data
     
-    desig = list(HoldsDesignation.objects.select_related('user','working','designation').all().filter(working = user).values_list('designation'))
-    b = [i for sub in desig for i in sub]
-    design = HoldsDesignation.objects.select_related('user','designation').filter(working=user)
+    design = HoldsDesignation.objects.select_related('user', 'designation').filter(working=user)
+    extra_info = ExtraInfo.objects.filter(user=user).only('user_type').first()
+    user_type = str(extra_info.user_type) if extra_info else None
 
-    designation=[]
-                
-    if str(user.extrainfo.user_type) == "student":
-        designation.append(str(user.extrainfo.user_type))
-        
+    designation = []
+
+    if user_type == "student":
+        designation.append(user_type)
+
     for i in design:
-        if str(i.designation) != str(user.extrainfo.user_type):
-            designation.append(str(i.designation))
+        current_designation = str(i.designation)
+        if current_designation != user_type:
+            designation.append(current_designation)
+
+    # Keep API resilient for newly-created auth users that do not yet have profile rows.
+    designation = list(dict.fromkeys(designation))
+    if not designation and user_type:
+        designation = [user_type]
+    if not designation:
+        designation = ['staff']
     
     resp = {
         'success' : 'True',

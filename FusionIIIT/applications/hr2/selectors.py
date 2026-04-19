@@ -41,8 +41,12 @@ def get_leave_form_by_id(form_id):
         return None
 
 def get_leave_inbox(user):
-    designations = [hd.designation.name for hd in HoldsDesignation.objects.filter(user=user)]
-    return LeaveForm.objects.filter(status='PENDING', addministrativeResponsibiltyAssigned__in=designations)
+    # The frontend form saves the substitute's username
+    return LeaveForm.objects.filter(
+        Q(status='PENDING') & 
+        (Q(addministrativeResponsibiltyAssigned=user.username) | 
+         Q(academicResponsibility=user.username))
+    )
 
 def get_ltc_forms(employee):
     return LTCform.objects.filter(employeeId=employee.id)
@@ -56,7 +60,90 @@ def get_cpda_reimbursement_forms(employee):
 def get_appraisal_forms(employee):
     return Appraisalform.objects.filter(employeeId=employee.id)
 
+def _get_user_designations(user):
+    """Return uppercase set of all designation names for a user."""
+    return {
+        str(hd.designation.name).strip().upper()
+        for hd in HoldsDesignation.objects.filter(user=user).select_related("designation")
+    }
+
+def _has_any(desig_set, *names):
+    """Check if any of the given names (case-insensitive) are in the designation set."""
+    targets = {n.strip().upper() for n in names}
+    return bool(desig_set & targets)
+
+def get_ltc_inbox(user):
+    desigs = _get_user_designations(user)
+    inbox = []
+    # HODs verify PENDING forms
+    if _has_any(desigs, "HOD", "HEAD OF DEPARTMENT"):
+        inbox.extend(list(LTCform.objects.filter(status='PENDING')))
+    # Director / HR Admin give final approval on FORWARDED forms
+    if _has_any(desigs, "DIRECTOR", "REGISTRAR", "HR ADMIN", "HR ADMINISTRATOR"):
+        inbox.extend(list(LTCform.objects.filter(status='FORWARDED')))
+    # Accountant processes financially-approved forms
+    if _has_any(desigs, "ACCOUNTANT", "FINANCE"):
+        inbox.extend(list(LTCform.objects.filter(status='APPROVED')))
+    # Deduplicate preserving order
+    seen = set()
+    result = []
+    for f in inbox:
+        if f.id not in seen:
+            seen.add(f.id)
+            result.append(f)
+    return result
+
+def get_cpda_advance_inbox(user):
+    desigs = _get_user_designations(user)
+    inbox = []
+    if _has_any(desigs, "HOD", "HEAD OF DEPARTMENT"):
+        inbox.extend(list(CPDAAdvanceform.objects.filter(status='PENDING')))
+    if _has_any(desigs, "DIRECTOR", "REGISTRAR"):
+        inbox.extend(list(CPDAAdvanceform.objects.filter(status='FORWARDED')))
+    if _has_any(desigs, "ACCOUNTANT", "FINANCE"):
+        inbox.extend(list(CPDAAdvanceform.objects.filter(status='APPROVED')))
+    seen = set()
+    result = []
+    for f in inbox:
+        if f.id not in seen:
+            seen.add(f.id)
+            result.append(f)
+    return result
+
+def get_cpda_reimbursement_inbox(user):
+    desigs = _get_user_designations(user)
+    inbox = []
+    if _has_any(desigs, "HOD", "HEAD OF DEPARTMENT"):
+        inbox.extend(list(CPDAReimbursementform.objects.filter(status='PENDING')))
+    if _has_any(desigs, "DIRECTOR", "REGISTRAR"):
+        inbox.extend(list(CPDAReimbursementform.objects.filter(status='FORWARDED')))
+    if _has_any(desigs, "ACCOUNTANT", "FINANCE"):
+        inbox.extend(list(CPDAReimbursementform.objects.filter(status='APPROVED')))
+    seen = set()
+    result = []
+    for f in inbox:
+        if f.id not in seen:
+            seen.add(f.id)
+            result.append(f)
+    return result
+
+def get_appraisal_inbox(user):
+    desigs = _get_user_designations(user)
+    inbox = []
+    if _has_any(desigs, "HOD", "HEAD OF DEPARTMENT"):
+        inbox.extend(list(Appraisalform.objects.filter(status='PENDING')))
+    if _has_any(desigs, "HR ADMIN", "HR ADMINISTRATOR", "DIRECTOR"):
+        inbox.extend(list(Appraisalform.objects.filter(status='FORWARDED')))
+    seen = set()
+    result = []
+    for f in inbox:
+        if f.id not in seen:
+            seen.add(f.id)
+            result.append(f)
+    return result
+
 def get_all_employee_balances():
+
     return LeaveBalance.objects.all()
 
 def get_designations_for_user(user):

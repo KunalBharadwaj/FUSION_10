@@ -21,7 +21,11 @@ from applications.hr2.selectors import (
     get_employee_by_user, get_leave_balance as sel_get_leave_balance,
     get_leave_forms, get_leave_form_by_id as sel_get_leave_form_by_id,
     get_leave_inbox as sel_get_leave_inbox, search_employees as sel_search_employees,
-    get_ltc_forms, get_cpda_advance_forms, get_cpda_reimbursement_forms, get_appraisal_forms
+    get_ltc_forms, get_cpda_advance_forms, get_cpda_reimbursement_forms, get_appraisal_forms,
+    get_ltc_inbox as sel_get_ltc_inbox,
+    get_cpda_advance_inbox as sel_get_cpda_advance_inbox,
+    get_cpda_reimbursement_inbox as sel_get_cpda_reimbursement_inbox,
+    get_appraisal_inbox as sel_get_appraisal_inbox
 )
 from applications.hr2.api.serializers import (
     LeaveBalanceSerializer, LeaveFormSerializer, LeaveInboxSerializer, LeaveSearchResultSerializer,
@@ -212,6 +216,43 @@ class Appraisal(APIView):
             return Response({"error": _validation_error_message(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return _unexpected_error_response(e, "Appraisal POST failed")
+
+class LTCInbox(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            forms = sel_get_ltc_inbox(request.user)
+            return Response(LTCSerializer(forms, many=True).data)
+        except Exception as e:
+            return _unexpected_error_response(e, "LTCInbox GET failed")
+
+class CPDAAdvanceInbox(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            forms = sel_get_cpda_advance_inbox(request.user)
+            return Response(CPDAAdvanceSerializer(forms, many=True).data)
+        except Exception as e:
+            return _unexpected_error_response(e, "CPDAAdvanceInbox GET failed")
+
+class CPDAReimbursementInbox(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            forms = sel_get_cpda_reimbursement_inbox(request.user)
+            return Response(CPDAReimbursementSerializer(forms, many=True).data)
+        except Exception as e:
+            return _unexpected_error_response(e, "CPDAReimbursementInbox GET failed")
+
+class AppraisalInbox(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            forms = sel_get_appraisal_inbox(request.user)
+            return Response(AppraisalformSerializer(forms, many=True).data)
+        except Exception as e:
+            return _unexpected_error_response(e, "AppraisalInbox GET failed")
+
 
 
 @api_view(['GET', 'POST'])

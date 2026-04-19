@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
     get_leave_balance, submit_leave_form, get_leave_requests, get_leave_inbox, handle_leave_file,
-    search_employees, LTC, CPDAAdvance, CPDAReimbursement, Appraisal, workflow_action
+    search_employees, LTC, CPDAAdvance, CPDAReimbursement, Appraisal, workflow_action,
+    LTCInbox, CPDAAdvanceInbox, CPDAReimbursementInbox, AppraisalInbox
 )
 
 urlpatterns = [
@@ -23,4 +24,10 @@ urlpatterns = [
     path('cpda-reimbursement/', CPDAReimbursement.as_view(), name='cpda_reimbursement_alias'),
     path('appraisal/', Appraisal.as_view(), name='appraisal'),
     path('workflow_action/', workflow_action, name='workflow_action'),
+    path('ltc-inbox/', LTCInbox.as_view(), name='ltc_inbox'),
+    path('cpdaadv-inbox/', CPDAAdvanceInbox.as_view(), name='cpdaadv_inbox'),
+    path('cpda-advance-inbox/', CPDAAdvanceInbox.as_view(), name='cpda_advance_inbox_alias'),
+    path('cpdareim-inbox/', CPDAReimbursementInbox.as_view(), name='cpdareim_inbox'),
+    path('cpda-reimbursement-inbox/', CPDAReimbursementInbox.as_view(), name='cpda_reimbursement_inbox_alias'),
+    path('appraisal-inbox/', AppraisalInbox.as_view(), name='appraisal_inbox'),
 ]
