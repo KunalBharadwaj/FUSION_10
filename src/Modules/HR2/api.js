@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getApiErrorMessage } from "../../utils/apiError";
+import { getApiErrorMessage } from "./utils/apiError";
 import {
   leaveBalanceRoute,
   submitLeaveRoute,

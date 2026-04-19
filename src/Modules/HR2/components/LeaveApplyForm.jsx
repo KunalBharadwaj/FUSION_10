@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { searchEmployees } from "../api";
-import { getApiErrorMessage } from "../../../utils/apiError";
+import { getApiErrorMessage } from "../utils/apiError";
 
 export default function LeaveApplyForm({
   form,

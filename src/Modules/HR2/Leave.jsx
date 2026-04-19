@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Loader, Alert, Tabs } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { fetchLeaveBalance, fetchLeaveRequests, submitLeaveForm } from "./api";
-import { getApiErrorMessage } from "../../utils/apiError";
+import { getApiErrorMessage } from "./utils/apiError";
 import LeaveBalanceCard from "./components/LeaveBalanceCard";
 import LeaveApplyForm from "./components/LeaveApplyForm";
 import LeaveRequestsTable from "./components/LeaveRequestsTable";
