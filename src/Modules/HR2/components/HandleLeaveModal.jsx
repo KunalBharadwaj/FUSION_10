@@ -48,7 +48,7 @@ export default function HandleLeaveModal({
             label="Forward To"
             data={employees.map((e) => ({
               value: e.username,
-              label: `${e.first_name} ${e.last_name} (${e.designation})`,
+              label: `${`${e.first_name} ${e.last_name}`.trim() || e.username} (${e.username})`,
             }))}
             value={forwardTo}
             onChange={setForwardTo}

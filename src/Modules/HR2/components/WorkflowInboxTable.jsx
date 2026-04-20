@@ -18,7 +18,7 @@ export default function WorkflowInboxTable({ items, title, targetType, onActionC
         if (targetType === "cpda_advance" || targetType === "cpda_reimbursement") actionName = "cpda_decision";
         else if (targetType === "ltc") actionName = "ltc_decision";
         else if (targetType === "appraisal") actionName = "appraisal_decision";
-      } else if (item.status === "APPROVED" && (targetType === "cpda_advance" || targetType === "cpda_reimbursement")) {
+      } else if (item.status === "APPROVED" && (targetType === "cpda_advance" || targetType === "cpda_reimbursement" || targetType === "ltc")) {
         actionName = "process_financial_claim";
       }
 
@@ -26,7 +26,7 @@ export default function WorkflowInboxTable({ items, title, targetType, onActionC
         form_id: item.id,
         target_type: targetType,
         decision: decision,
-        claim_type: targetType === "cpda_advance" || targetType === "cpda_reimbursement" ? "CPDA" : undefined
+        claim_type: targetType === "ltc" ? "LTC" : "CPDA"
       });
 
       notifications.show({

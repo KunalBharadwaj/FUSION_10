@@ -26,7 +26,7 @@ export default function LeaveApplyForm({
         setEmployeeOptions(
           data.map((emp) => ({
             value: emp.username,
-            label: `${emp.first_name} ${emp.last_name}`.trim() || emp.username,
+            label: `${`${emp.first_name} ${emp.last_name}`.trim() || emp.username} (${emp.username})`,
           })),
         );
       })
