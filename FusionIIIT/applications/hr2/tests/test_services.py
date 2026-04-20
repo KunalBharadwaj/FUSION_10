@@ -22,6 +22,32 @@ class ServicesTest(TestCase):
             blood_group=Constants.BloodGroup.O_POS,
             designation='Assistant Professor'
         )
+        self.substitute_user = User.objects.create_user(
+            username='hod1002', password='password', first_name='Anil', last_name='Kumar'
+        )
+        self.substitute_info = ExtraInfo.objects.create(
+            id='hod1002', user=self.substitute_user, user_type='faculty'
+        )
+        self.substitute_employee = Employee.objects.create(
+            extra_info=self.substitute_info,
+            employee_type=Constants.EmployeeType.FACULTY,
+            category=Constants.Category.GENERAL,
+            blood_group=Constants.BloodGroup.O_POS,
+            designation='Associate Professor'
+        )
+        self.forward_user = User.objects.create_user(
+            username='director01', password='password', first_name='Director', last_name='User'
+        )
+        self.forward_info = ExtraInfo.objects.create(
+            id='director01', user=self.forward_user, user_type='faculty'
+        )
+        self.forward_employee = Employee.objects.create(
+            extra_info=self.forward_info,
+            employee_type=Constants.EmployeeType.FACULTY,
+            category=Constants.Category.GENERAL,
+            blood_group=Constants.BloodGroup.O_POS,
+            designation='Director'
+        )
 
     def test_submit_leave_form_success(self):
         data = {
@@ -36,6 +62,32 @@ class ServicesTest(TestCase):
         self.assertEqual(form.status, Constants.Status.PENDING)
         self.assertEqual(form.created_by, self.user)
         self.assertEqual(form.employeeId, self.employee.id)
+
+    def test_submit_leave_form_routes_to_selected_substitute(self):
+        data = {
+            'pfNo': 1234,
+            'departmentInfo': 'CSE',
+            'natureOfLeave': 'casual_leave',
+            'leaveStartDate': '2026-04-01',
+            'leaveEndDate': '2026-04-02',
+            'purposeOfLeave': 'Personal',
+            'academicResponsibility': self.substitute_user.username,
+        }
+        form = submit_leave_form(self.user, data)
+        self.assertEqual(form.academicResponsibility, self.substitute_user.username)
+
+    def test_submit_leave_form_rejects_self_substitute(self):
+        data = {
+            'pfNo': 1234,
+            'departmentInfo': 'CSE',
+            'natureOfLeave': 'casual_leave',
+            'leaveStartDate': '2026-04-01',
+            'leaveEndDate': '2026-04-02',
+            'purposeOfLeave': 'Personal',
+            'academicResponsibility': self.user.username,
+        }
+        with self.assertRaises(ValidationError):
+            submit_leave_form(self.user, data)
 
     def test_submit_leave_form_invalid_dates(self):
         data = {
@@ -62,11 +114,16 @@ class ServicesTest(TestCase):
     def test_handle_leave_file_forward(self):
         form = LeaveForm.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
+            academicResponsibility=self.substitute_user.username,
             submissionDate=date.today(), status=Constants.Status.PENDING, created_by=self.user
         )
-        updated_form = handle_leave_file(form.id, self.user, 'FORWARD', 'Looks good', forward_designation='HOD')
+        updated_form = handle_leave_file(
+            form.id, self.substitute_user, 'FORWARD', 'Looks good',
+            forward_to=self.forward_user.username,
+        )
         self.assertEqual(updated_form.status, Constants.Status.FORWARDED)
-        self.assertEqual(updated_form.addministrativeResponsibiltyAssigned, 'HOD')
+        self.assertEqual(updated_form.addministrativeResponsibiltyAssigned, self.forward_user.username)
+        self.assertIsNone(updated_form.academicResponsibility)
 
     def test_handle_leave_file_accept(self):
         form = LeaveForm.objects.create(

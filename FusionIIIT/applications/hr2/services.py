@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.contrib.auth.models import User
 from datetime import datetime, date, timedelta
 from applications.globals.models import HoldsDesignation, ExtraInfo
 from .models import Constants, LeaveForm, LeaveBalance, LeaveClaim, LTCform, CPDAAdvanceform, CPDAReimbursementform, Appraisalform, Employee
@@ -248,6 +249,20 @@ def submit_leave_form(user, data):
     # Check for leave overlap
     if start_date and end_date:
         check_leave_overlap(emp, start_date, end_date)
+
+    academic_responsibility = (data.get('academicResponsibility') or '').strip() or None
+    administrative_responsibility = (
+        data.get('addministrativeResponsibiltyAssigned') or ''
+    ).strip() or None
+    for substitute_username in [academic_responsibility, administrative_responsibility]:
+        if substitute_username == user.username:
+            raise ValidationError("Substitute must be different from the applicant.")
+        if substitute_username and not User.objects.filter(
+            username=substitute_username,
+            is_active=True,
+            extrainfo__user_type='faculty',
+        ).exists():
+            raise ValidationError(f"Invalid substitute selected: {substitute_username}.")
     
     form = LeaveForm.objects.create(
         employeeId=emp.id,
@@ -261,8 +276,8 @@ def submit_leave_form(user, data):
         leaveEndDate=end_date,
         purposeOfLeave=data.get('purposeOfLeave'),
         addressDuringLeave=data.get('addressDuringLeave'),
-        academicResponsibility=data.get('academicResponsibility'),
-        addministrativeResponsibiltyAssigned=data.get('addministrativeResponsibiltyAssigned'),
+        academicResponsibility=academic_responsibility,
+        addministrativeResponsibiltyAssigned=administrative_responsibility,
         status=Constants.Status.PENDING,
         created_by=user
     )
@@ -276,8 +291,13 @@ def handle_leave_file(form_id, user, action, remarks, forward_to=None, forward_d
     new_status = None
     if action == 'FORWARD':
         new_status = Constants.Status.FORWARDED
-        if forward_designation:
-            form.addministrativeResponsibiltyAssigned = forward_designation
+        forward_target = (forward_to or forward_designation or '').strip()
+        if not forward_target:
+            raise ValidationError("Forward target is required.")
+        if not User.objects.filter(username=forward_target, is_active=True).exists():
+            raise ValidationError(f"Invalid forward target selected: {forward_target}.")
+        form.addministrativeResponsibiltyAssigned = forward_target
+        form.academicResponsibility = None
     elif action == 'ACCEPT':
         new_status = Constants.Status.APPROVED
         form.approved = True
@@ -574,6 +594,8 @@ def process_hr_workflow_action(user, action, payload=None):
         form = _get_target("leave", payload.get("form_id"))
         if form.status not in [Constants.Status.PENDING, Constants.Status.FORWARDED]:
             raise InvalidStatusTransition("Only pending requests may be withdrawn.")
+        form.status = Constants.Status.ARCHIVED
+        form.save()
         audit(target_type="LeaveForm", target_id=form.id)
         return {"state": "WITHDRAWAL_SUBMITTED", "form_id": form.id}
 

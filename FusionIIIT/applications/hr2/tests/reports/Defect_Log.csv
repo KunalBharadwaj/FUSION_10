@@ -1,2 +1,2 @@
 Defect ID,Related Test ID,Related Artifact,Severity,Description,Suggested Fix
-DEF-001,BR-HR-021-V-01,BR-HR-021,Critical,BR BR-HR-021: Expected [Valid condition is accepted or enforced as expected.] but got [HTTP 400],"Review and fix implementation of BR-HR-021 — {'error': ""['CPDA must be verified by HoD before final decision.']""}"
+DEF-001,BR-HR-021-V-01,BR-HR-021,Critical,BR BR-HR-021: Expected [Valid condition is accepted or enforced as expected.] but got [HTTP 400],Review and fix implementation of BR-HR-021 — {'error': ['CPDA must be verified by HoD before final decision.']}

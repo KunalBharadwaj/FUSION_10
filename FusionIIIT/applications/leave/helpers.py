@@ -238,8 +238,10 @@ def deduct_leave_balance(leave,check):
 
 
 def get_pending_leave_requests(user):
-    users = list(x.user for x in user.current_designation.all())
-    requests = LeaveRequest.objects.filter(Q(requested_from__in=users), Q(status='pending'))
+    delegated_users = list(user.current_designation.values_list('user', flat=True))
+    requests = LeaveRequest.objects.filter(status='pending').filter(
+        Q(requested_from=user) | Q(requested_from__in=delegated_users)
+    ).distinct()
     return requests
 
 

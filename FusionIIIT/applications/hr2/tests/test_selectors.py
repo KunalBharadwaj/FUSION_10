@@ -63,8 +63,18 @@ class SelectorsTest(TestCase):
     def test_get_leave_inbox(self):
         form = LeaveForm.objects.create(
             employeeId=self.employee.id, name='Test', designation='Assistant Professor',
-            addministrativeResponsibiltyAssigned='Assistant Professor',
+            addministrativeResponsibiltyAssigned=self.user.username,
             submissionDate=date.today(), status=Constants.Status.PENDING, created_by=self.user
+        )
+        inbox = get_leave_inbox(self.user)
+        self.assertEqual(inbox.count(), 1)
+        self.assertEqual(inbox.first().id, form.id)
+
+    def test_get_leave_inbox_includes_forwarded_username_route(self):
+        form = LeaveForm.objects.create(
+            employeeId=self.employee.id, name='Test', designation='Assistant Professor',
+            addministrativeResponsibiltyAssigned=self.user.username,
+            submissionDate=date.today(), status=Constants.Status.FORWARDED, created_by=self.user
         )
         inbox = get_leave_inbox(self.user)
         self.assertEqual(inbox.count(), 1)

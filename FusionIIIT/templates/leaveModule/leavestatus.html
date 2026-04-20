@@ -126,7 +126,7 @@
                                         <i class="hourglass half orange icon"></i>
                                     {% endif %}
                                 <td> <a href="/leave/generate-form?id={{ leave.id }}" class="ui button blue" target="_blank"> Generate </a> </td>
-                                <td> {% if leave.yet_not_started %} <a data="{{ leave.id }}" class="ui button red delete_leave"> Delete </a> {% endif %}
+                                  <td> {% if leave.yet_not_started and leave.status != "rejected" %} <a data="{{ leave.id }}" class="ui button red delete_leave"> Delete </a> {% endif %}
                                  </td>
                             </tr>
 

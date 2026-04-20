@@ -31,6 +31,35 @@ AdminFormSetOffline = formset_factory(AdminReplacementFormOffline, extra=0, max_
 common_form_offline = EmployeeCommonFormOffline()
 
 
+def get_current_holder_user(designation):
+    if designation is None:
+        return None
+
+    holder = designation.designees.order_by('-held_at').first()
+    if holder is None:
+        return None
+
+    return holder.working
+
+
+def get_leave_authority_user(applicant):
+    try:
+        designation = applicant.leave_admins.authority
+    except Exception:
+        return None
+
+    return get_current_holder_user(designation)
+
+
+def get_leave_officer_user(applicant):
+    try:
+        designation = applicant.leave_admins.officer
+    except Exception:
+        return None
+
+    return get_current_holder_user(designation)
+
+
 def add_leave_segment(form, type_of_leaves):
     data = form.cleaned_data
     leave_type = type_of_leaves.get(id=data.get('leave_type'))
@@ -270,29 +299,32 @@ def handle_student_leave_application(request):
 
     if form.is_valid():
         data = form.cleaned_data
-        leave = Leave.objects.create(
-            applicant=request.user,
-            purpose=data.get('purpose'),
-            extra_info=data.get('leave_info'),
-        )
+        requested_from = get_leave_authority_user(request.user)
+        if requested_from is None:
+            form.add_error(None, 'Leave sanctioning authority is not configured for your account.')
+        else:
+            leave = Leave.objects.create(
+                applicant=request.user,
+                purpose=data.get('purpose'),
+                extra_info=data.get('leave_info'),
+            )
 
-        leave_type = LeaveType.objects.get(name=data.get('leave_type'))
+            leave_type = LeaveType.objects.get(name=data.get('leave_type'))
 
-        LeaveSegment.objects.create(
-            leave=leave,
-            leave_type=leave_type,
-            document=data.get('document'),
-            start_date=data.get('start_date'),
-            end_date=data.get('end_date')
-        )
-        requested_from = request.user.leave_admins.authority.designees.first().user
-        LeaveRequest.objects.create(
-            leave=leave,
-            requested_from=requested_from
-        )
-        deduct_leave_balance(leave,False)
-        messages.add_message(request, messages.SUCCESS, 'Successfully Submitted !')
-        return redirect('leave:leave')
+            LeaveSegment.objects.create(
+                leave=leave,
+                leave_type=leave_type,
+                document=data.get('document'),
+                start_date=data.get('start_date'),
+                end_date=data.get('end_date')
+            )
+            LeaveRequest.objects.create(
+                leave=leave,
+                requested_from=requested_from
+            )
+            deduct_leave_balance(leave,False)
+            messages.add_message(request, messages.SUCCESS, 'Successfully Submitted !')
+            return redirect('leave:leave')
 
     leave_balance = request.user.leave_balance.all()
     user_leave_applications = Leave.objects.filter(applicant=request.user).order_by('-timestamp')
@@ -381,10 +413,16 @@ def intermediary_processing(request, leave_request):
     leave_request.remark = remark
     leave = leave_request.leave
     if status == 'forward':
+        authority = get_leave_authority_user(leave.applicant)
+        if authority is None:
+            return JsonResponse(
+                {'status': 'failed', 'message': 'Leave sanctioning authority is not configured.'},
+                status=400
+            )
+
         leave_request.status = 'forwarded'
         leave_request.save()
         leave_module_notif(request.user, leave_request.leave.applicant, 'leave_forwarded')
-        authority = leave.applicant.leave_admins.authority.designees.first().user
         LeaveRequest.objects.create(
             leave=leave_request.leave,
             requested_from=authority,
@@ -422,10 +460,16 @@ def authority_processing(request, leave_request):
         leave_module_notif(request.user, leave_request.leave.applicant, 'leave_accepted')
 
     elif status == 'forward':
+        officer = get_leave_officer_user(leave.applicant)
+        if officer is None:
+            return JsonResponse(
+                {'status': 'failed', 'message': 'Leave sanctioning officer is not configured.'},
+                status=400
+            )
+
         leave_request.status = 'forwarded'
         leave_request.save()
         leave_module_notif(request.user, leave_request.leave.applicant, 'leave_forwarded')
-        officer = leave.applicant.leave_admins.officer.designees.first().user
         leave_module_notif(leave_request.leave.applicant, officer, 'leave_request')
         LeaveRequest.objects.create(
             leave=leave,
@@ -487,6 +531,16 @@ def process_staff_faculty_application(request):
             # TODO: Handle the Object not found error
             rep_request = ReplacementSegment.objects.get(id=id)
             if status == 'accept':
+                authority = None
+                pending_count = rep_request.leave.replace_segments.filter(status='pending').count()
+                if rep_request.status == 'pending' and pending_count == 1:
+                    authority = get_leave_authority_user(rep_request.leave.applicant)
+                    if authority is None:
+                        return JsonResponse(
+                            {'status': 'failed', 'message': 'Leave sanctioning authority is not configured.'},
+                            status=400
+                        )
+
                 # return JsonResponse({'status': 'success', 'message': 'Successfully Accepted'})
                 rep_request.status = 'accepted'
                 rep_request.remark = request.POST.get('remark')
@@ -500,7 +554,14 @@ def process_staff_faculty_application(request):
                         leave=rep_request.leave,
                         permission='intermediary'
                     )"""
-                    authority = rep_request.leave.applicant.leave_admins.authority.designees.first().user
+                    if authority is None:
+                        authority = get_leave_authority_user(rep_request.leave.applicant)
+                    if authority is None:
+                        return JsonResponse(
+                            {'status': 'failed', 'message': 'Leave sanctioning authority is not configured.'},
+                            status=400
+                        )
+
                     leave_module_notif(rep_request.leave.applicant, authority, 'leave_request')
                     LeaveRequest.objects.create(
                         leave=rep_request.leave,
@@ -567,21 +628,25 @@ def process_student_application(request):
 def delete_leave_application(request):
     leave_id = request.POST.get('id')
     leave = request.user.all_leaves.filter(id=leave_id).first()
-    leave_start_date = LeaveSegment.objects.filter(leave=leave).first().start_date
-    print(leave.status)
-    if leave and leave.applicant == request.user and leave.status != 'rejected' and timezone.now().date() <= leave_start_date:
+    if not leave or leave.applicant != request.user:
+        return JsonResponse({'status': 'failed', 'message': 'Cancellation Failed'}, status=400)
+
+    first_segment = leave.segments.order_by('start_date').first()
+    if not first_segment:
+        return JsonResponse({'status': 'failed', 'message': 'Cancellation Failed'}, status=400)
+
+    can_cancel = leave.status != 'rejected' and timezone.now().date() <= first_segment.start_date
+    if can_cancel:
         rep_requests = ReplacementSegment.objects.filter(leave = leave)
         leave_requests = LeaveRequest.objects.filter(leave = leave)
         for i in rep_requests:
             if i.status == 'accepted':
                 #notification to replacement user that  user has cancelled the leave
-                print("It is working! Yeah")
                 leave_module_notif(request.user, i.replacer, 'replacement_cancel', str(i.start_date))
 
         for i in leave_requests:
             if i.status == 'accepted':
                 #notification to replacement user that  user has cancelled the leave
-                print("It is working! Yeah")
                 leave_module_notif(request.user, i.requested_from, 'leave_withdrawn', str(leave.timestamp.date()))
 
         restore_leave_balance(leave)

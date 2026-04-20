@@ -41,9 +41,9 @@ def get_leave_form_by_id(form_id):
         return None
 
 def get_leave_inbox(user):
-    # The frontend form saves the substitute's username
+    # Leave workflow routing stores the selected substitute / forwardee username.
     return LeaveForm.objects.filter(
-        Q(status='PENDING') & 
+        Q(status__in=['PENDING', 'FORWARDED']) &
         (Q(addministrativeResponsibiltyAssigned=user.username) | 
          Q(academicResponsibility=user.username))
     )

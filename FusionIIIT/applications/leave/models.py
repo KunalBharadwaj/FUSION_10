@@ -96,11 +96,10 @@ class Leave(models.Model):
 
     @property
     def yet_not_started(self):
-        #for segment in self.segments.all():
-        #    today = timezone.now().date()
-        #    if segment.start_date <= today:
-        #        return False
-        return True
+        first_segment = self.segments.order_by('start_date').first()
+        if not first_segment:
+            return False
+        return timezone.now().date() <= first_segment.start_date
 
     def __str__(self):
         return '{} applied, status: {}'.format(self.applicant.username,
